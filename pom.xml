@@ -19,7 +19,12 @@
     <url>https://github.com/jenkinsci/disable-failed-job-plugin.git</url>
     <tag>HEAD</tag>
   </scm>
-  
+     <licenses>
+        <license>
+            <name>MIT license</name>
+            <comments>All source code is under the MIT license.</comments>
+        </license>
+    </licenses> 
   <developers>
     <developer>
       <id>w_kazunori</id>
