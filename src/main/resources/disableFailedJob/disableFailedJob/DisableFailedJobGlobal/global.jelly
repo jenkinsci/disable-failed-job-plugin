@@ -18,7 +18,10 @@
         </f:entry>
         <f:entry title="Number Of Consecutive Failures">
           <f:textbox value="${instance.getFailureTimes()}" name="failureTimes" default="1"/>
-        </f:entry>    
+        </f:entry>
+        <f:entry>
+            <f:checkbox checked="${instance.getDisableDescriptionUpdate()}" name="disableDescriptionUpdate" title="Do not update the description"/>
+        </f:entry>
     </f:optionalBlock>
   </f:section>
 </j:jelly>

@@ -19,14 +19,16 @@ public class DisableFailedJob extends Publisher {
 	private final String whenDisable;
 	private final String failureTimes;
 	private final String optionalBlockChecked;
+	private final String disableDescriptionUpdate;
 
 	private static final String FAILURE_DISCRIPTION = "This job has been disabled by 'Disable Failed Job Plugin' due to consecutive failures. ";
 	private static final String LINE_SEPARATOR = System
 			.getProperty("line.separator");
 
 	@DataBoundConstructor
-	public DisableFailedJob(String whenDisable, OptionalBlock optionalBlock) {
+	public DisableFailedJob(String whenDisable, String disableDescriptionUpdate, OptionalBlock optionalBlock) {
 		this.whenDisable = whenDisable;
+		this.disableDescriptionUpdate = disableDescriptionUpdate;
 		if (optionalBlock != null) {
 			this.failureTimes = optionalBlock.failureTimes;
 			optionalBlockChecked = "true";
@@ -42,6 +44,10 @@ public class DisableFailedJob extends Publisher {
 
 	public String getFailureTimes() {
 		return failureTimes;
+	}
+
+	public String getDisableDescriptionUpdate() {
+		return disableDescriptionUpdate;
 	}
 
 	public String getOptionalBlockChecked() {
@@ -128,15 +134,17 @@ public class DisableFailedJob extends Publisher {
 	private void disableJob(AbstractBuild<?, ?> build, BuildListener listener)
 			throws IOException {
 		build.getProject().disable();
-		String description = build.getProject().getDescription();
-		if (description == null) {
-			description = new String();
+		if (disableDescriptionUpdate == null || disableDescriptionUpdate.equals("false")) {
+			String description = build.getProject().getDescription();
+			if (description == null) {
+				description = "";
+			}
+			if (!description.contains(FAILURE_DISCRIPTION)) {
+				description = description.concat(LINE_SEPARATOR
+						+ FAILURE_DISCRIPTION);
+			}
+			build.getProject().setDescription(description);
 		}
-		if (!description.contains(FAILURE_DISCRIPTION)) {
-			description = description.concat(LINE_SEPARATOR
-					+ FAILURE_DISCRIPTION);
-		}
-		build.getProject().setDescription(description);
 		listener.getLogger()
 				.println("'Disable Failed Job Plugin' Disabled Job");
 	}
@@ -146,6 +154,7 @@ public class DisableFailedJob extends Publisher {
 
 		private String whenDisable;
 		private String failureTimes;
+		private String disableDescriptionUpdate;
 		private String optionalBlockChecked;
 
 		public DescriptorImpl() {
@@ -167,6 +176,8 @@ public class DisableFailedJob extends Publisher {
 		public String failureTimes() {
 			return failureTimes;
 		}
+
+		public String disableDescriptionUpdate() { return disableDescriptionUpdate; }
 
 		public String optionalBlockChecked() {
 			return optionalBlockChecked;

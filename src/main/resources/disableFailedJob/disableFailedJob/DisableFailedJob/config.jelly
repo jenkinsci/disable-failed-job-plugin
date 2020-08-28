@@ -24,6 +24,11 @@
 				</f:optionalBlock>
 			</table>
 		</f:block>
+		<f:block>
+            <table>
+                <f:checkbox checked="${instance.getDisableDescriptionUpdate()}" name="disableDescriptionUpdate" title="Do not update the description"/>
+            </table>
+        </f:block>
 	</f:advanced>
   </f:entry>
 </j:jelly>

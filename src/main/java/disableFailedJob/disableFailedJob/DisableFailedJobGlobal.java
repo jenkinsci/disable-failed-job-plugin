@@ -16,6 +16,7 @@ public class DisableFailedJobGlobal extends Builder {
 
 		private String whenDisable;
 		private String failureTimes;
+		private String disableDescriptionUpdate;
 
 		public Descriptor() {
 			load();
@@ -24,12 +25,13 @@ public class DisableFailedJobGlobal extends Builder {
 		@Override
 		public boolean configure(StaplerRequest req, JSONObject json)
 				throws FormException {
-			whenDisable = failureTimes = null;
+			whenDisable = failureTimes = disableDescriptionUpdate = null;
 			JSONObject disableJobsJson = json.getJSONObject("disableJobs");
 			if (disableJobsJson != null && !disableJobsJson.isNullObject()
 					&& !disableJobsJson.isEmpty()) {
 				whenDisable = disableJobsJson.getString("whenDisable");
 				failureTimes = disableJobsJson.getString("failureTimes");
+				disableDescriptionUpdate = disableJobsJson.getString("disableDescriptionUpdate");
 			}
 			save();
 			return true;
@@ -56,6 +58,8 @@ public class DisableFailedJobGlobal extends Builder {
 		public String getFailureTimes() {
 			return failureTimes;
 		}
+
+		public String getDisableDescriptionUpdate() { return disableDescriptionUpdate; }
 
 	}
 }
