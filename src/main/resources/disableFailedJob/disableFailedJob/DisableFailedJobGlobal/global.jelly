@@ -3,7 +3,7 @@
     <f:optionalBlock title="Disable Jobs when they fail" checked="${instance.toDisableFailedJobs()}" name="disableJobs">
        <f:entry title="Build Status">
          <select name="whenDisable">
-            <j:invokeStatic className="disableFailedJob.disableFailedJob.ParameterDefinision" method="getJobDisatbleTimes" var="disableTimes" />
+            <j:invokeStatic className="disableFailedJob.disableFailedJob.ParameterDefinision" method="getJobDisableTimes" var="disableTimes" />
                 <j:forEach var="time" items="${disableTimes}" varStatus="loop">
                    <j:choose>
                       <j:when test="${time == instance.getWhenDisable()}">

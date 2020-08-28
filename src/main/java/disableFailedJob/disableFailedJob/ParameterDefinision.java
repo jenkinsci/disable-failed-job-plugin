@@ -35,7 +35,7 @@ public class ParameterDefinision extends SimpleParameterDefinition{
 		return null;
 	}
 	
-	public static List<String> getJobDisatbleTimes() {
+	public static List<String> getJobDisableTimes() {
 		List<String> jobDisableTimes = new ArrayList<String>();
 		jobDisableTimes.add(JOB_DISABLE_WHEN_ONLY_FAIRURE);
 		jobDisableTimes.add(JOB_DISABLE_WHEN_FAIRURE_AND_UNSTABLE);

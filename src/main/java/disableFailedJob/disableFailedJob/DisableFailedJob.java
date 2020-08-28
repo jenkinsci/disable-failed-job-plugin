@@ -18,21 +18,21 @@ public class DisableFailedJob extends Publisher {
 
 	private final String whenDisable;
 	private final String failureTimes;
-	private final String optionalBrockChecked;
+	private final String optionalBlockChecked;
 
 	private static final String FAILURE_DISCRIPTION = "This job has been disabled by 'Disable Failed Job Plugin' due to consecutive failures. ";
 	private static final String LINE_SEPARATOR = System
 			.getProperty("line.separator");
 
 	@DataBoundConstructor
-	public DisableFailedJob(String whenDisable, OptionalBrock optionalBrock) {
+	public DisableFailedJob(String whenDisable, OptionalBlock optionalBlock) {
 		this.whenDisable = whenDisable;
-		if (optionalBrock != null) {
-			this.failureTimes = optionalBrock.failureTimes;
-			optionalBrockChecked = "true";
+		if (optionalBlock != null) {
+			this.failureTimes = optionalBlock.failureTimes;
+			optionalBlockChecked = "true";
 		} else {
 			failureTimes = null;
-			optionalBrockChecked = "false";
+			optionalBlockChecked = "false";
 		}
 	}
 
@@ -44,8 +44,8 @@ public class DisableFailedJob extends Publisher {
 		return failureTimes;
 	}
 
-	public String getOptionalBrockChecked() {
-		return optionalBrockChecked;
+	public String getOptionalBlockChecked() {
+		return optionalBlockChecked;
 	}
 
 	@Override
@@ -93,7 +93,7 @@ public class DisableFailedJob extends Publisher {
 		if (whenDisable
 				.equals(ParameterDefinision.JOB_DISABLE_WHEN_ONLY_FAIRURE)) {
 			if (build.getResult() == Result.FAILURE) {
-				if (optionalBrockChecked.equals("true")
+				if (optionalBlockChecked.equals("true")
 						&& faildBuildCount < threshold) {
 					return false;
 				}
@@ -103,7 +103,7 @@ public class DisableFailedJob extends Publisher {
 				.equals(ParameterDefinision.JOB_DISABLE_WHEN_FAIRURE_AND_UNSTABLE)) {
 			if (build.getResult() == Result.FAILURE
 					|| build.getResult() == Result.UNSTABLE) {
-				if (optionalBrockChecked.equals("true")
+				if (optionalBlockChecked.equals("true")
 						&& notSuccessBuildCount < threshold) {
 					return false;
 				}
@@ -112,7 +112,7 @@ public class DisableFailedJob extends Publisher {
 		} else if (whenDisable
 				.equals(ParameterDefinision.JOB_DISABLE_WHEN_ONLY_UNSTABLE)) {
 			if (build.getResult() == Result.UNSTABLE) {
-				if (optionalBrockChecked.equals("true")
+				if (optionalBlockChecked.equals("true")
 						&& notUnstableBuildCount < threshold) {
 					return false;
 				}
@@ -146,7 +146,7 @@ public class DisableFailedJob extends Publisher {
 
 		private String whenDisable;
 		private String failureTimes;
-		private String optionalBrockChecked;
+		private String optionalBlockChecked;
 
 		public DescriptorImpl() {
 			super(DisableFailedJob.class);
@@ -168,17 +168,17 @@ public class DisableFailedJob extends Publisher {
 			return failureTimes;
 		}
 
-		public String optionalBrockChecked() {
-			return optionalBrockChecked;
+		public String optionalBlockChecked() {
+			return optionalBlockChecked;
 		}
 
 	}
 
-	public static class OptionalBrock {
+	public static class OptionalBlock {
 		public String failureTimes;
 
 		@DataBoundConstructor
-		public OptionalBrock(String failureTimes) {
+		public OptionalBlock(String failureTimes) {
 			this.failureTimes = failureTimes;
 		}
 	}

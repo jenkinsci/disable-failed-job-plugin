@@ -15,7 +15,6 @@ import jenkins.model.Jenkins;
 import org.apache.commons.lang.StringUtils;
 
 import disableFailedJob.disableFailedJob.DisableFailedJob;
-import disableFailedJob.disableFailedJob.DisableFailedJob.OptionalBrock;
 import disableFailedJob.disableFailedJob.DisableFailedJobGlobal;
 
 @SuppressWarnings("rawtypes")
@@ -49,7 +48,7 @@ public class DisableFailedJobRunListener extends RunListener<Run> {
 						// Construct the publisher with the values from global
 						// configuration
 						DisableFailedJob disableFailedJob = new DisableFailedJob(
-								descriptor.getWhenDisable(), new OptionalBrock(
+								descriptor.getWhenDisable(), new DisableFailedJob.OptionalBlock(
 										descriptor.getFailureTimes()));
 						try {
 							// Call perform to run the check and disable if

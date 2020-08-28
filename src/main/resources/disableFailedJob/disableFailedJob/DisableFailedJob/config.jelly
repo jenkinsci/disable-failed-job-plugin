@@ -2,7 +2,7 @@
 
   <f:entry title="Choose When Disable">
     <select name="whenDisable">
-        <j:invokeStatic className="disableFailedJob.disableFailedJob.ParameterDefinision" method="getJobDisatbleTimes" var="disableTimes" />
+        <j:invokeStatic className="disableFailedJob.disableFailedJob.ParameterDefinision" method="getJobDisableTimes" var="disableTimes" />
             <j:forEach var="time" items="${disableTimes}" varStatus="loop">
                 <j:choose>
                     <j:when test="${time == instance.getWhenDisable()}">
@@ -17,7 +17,7 @@
     <f:advanced >
     	<f:block>
 			<table>
-				<f:optionalBlock title="Disable job if it the last X builds have failed" checked="${instance.getOptionalBrockChecked()}" name="optionalBrock">
+				<f:optionalBlock title="Disable job if it the last X builds have failed" checked="${instance.getOptionalBlockChecked()}" name="optionalBlock">
 					<f:entry title="Number Of Consecutive Failures">
 						<f:textbox value="${instance.getFailureTimes()}" name="failureTimes" default="1"/>
 					</f:entry>
